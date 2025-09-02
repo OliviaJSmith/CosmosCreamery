@@ -4,24 +4,183 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cosmos Creamery</title>
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;600&display=swap" rel="stylesheet">
     <style>
         body {
             margin: 0;
             padding: 0;
             display: flex;
-            justify-content: center;
-            align-items: center;
+            flex-direction: column;
             min-height: 100vh;
         }
+
+        header {
+            width: 100%;
+            height: 60px;
+            background-color: #fff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .hamburger-menu {
+            border: none;
+            background: none;
+            font-size: 24px;
+            cursor: pointer;
+            padding: 10px;
+        }
+
+        .main-content {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+
         .logo-home {
             max-width: 100%;
             height: auto;
-            max-height: 100vh;
+            max-height: calc(100vh - 60px);
             object-fit: contain;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .popup-menu {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.655);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            opacity: 0.8;
+            visibility: hidden;
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+        }
+
+        .popup-menu.active {
+            opacity: 0.8;
+            visibility: visible;
+        }
+
+        .menu-items {
+            list-style: none;
+            padding: 0;
+            text-align: center;
+            font-family: 'Quicksand', sans-serif;
+        }
+
+        .menu-items li {
+            margin: 20px 0;
+        }
+
+        .menu-items a {
+            color: white;
+            text-decoration: none;
+            font-size: 28px;
+            font-weight: 600;
+            transition: color 0.3s ease;
+        }
+
+        .menu-items a:hover {
+            color: #ccc;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        #about, #contact {
+            padding: 0;
+            margin: 20px;
+            max-width: 800px;
+            font-family: 'Quicksand', sans-serif;
+            font-size: 1.2rem;
+            line-height: 1.6;
+            color: #333;
+            background-color: rgba(255, 255, 255, 0.9);
+            border-radius: 10px;
+            text-align: center;
+            height: 0;
+            overflow: hidden;
+            transition: all 0.3s ease-in-out;
+            opacity: 0;
+        }
+
+        #about.active, #contact.active {
+            padding: 20px;
+            height: auto;
+            opacity: 1;
         }
     </style>
 </head>
 <body>
-    <img class="logo-home" src="assets/logo.jpg" alt="Cosmos Creamery Logo">
+    <header>
+        <button class="hamburger-menu" aria-label="Menu">☰</button>
+    </header>
+    <div class="popup-menu">
+        <ul class="menu-items">
+            <li><a href="#about">About</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+    </div>
+    <main class="main-content">
+        <img class="logo-home" src="assets/logo.jpg" alt="Cosmos Creamery Logo">
+        <div id="about">
+            Cosmo's Creamery is named after a beloved family cat who was named after the flower. 
+            The story starts before I (Hi, Olivia the owner here!) was even born with my dad who made it his mission to make the 
+            best homemade chocolate ice cream you had ever had. I took my dad's recipe 
+            with me when I moved to Spokane, WA in 2020, and now, after many years of making it for 
+            family, friends, and coworkers, it's time to share it with even more people.
+        </div>
+        <div id="contact">
+            <div>Email: <strong>cosmoscreamery@gmail.com</strong></div>
+            <hr/>
+            <div>I will update this website with more details on availability
+                as production ramps up. In the mean time if you want to try this ice cream or have any other 
+                questions send an email to <strong>cosmoscreamery@gmail.com</strong>.
+            </div>
+        </div>
+    </main>
+    <script>
+        const hamburgerBtn = document.querySelector('.hamburger-menu');
+        const popupMenu = document.querySelector('.popup-menu');
+        const sections = {
+            about: document.getElementById('about'),
+            contact: document.getElementById('contact')
+        };
+
+        hamburgerBtn.addEventListener('click', () => {
+            popupMenu.classList.toggle('active');
+        });
+
+        // Updated click handlers for menu items
+        document.querySelectorAll('.menu-items a').forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                const targetId = link.getAttribute('href').slice(1);
+                
+                // Hide all sections
+                Object.values(sections).forEach(section => {
+                    section.classList.remove('active');
+                });
+                
+                // Show clicked section
+                sections[targetId].classList.add('active');
+                popupMenu.classList.remove('active');
+            });
+        });
+
+        popupMenu.addEventListener('click', (e) => {
+            if (e.target === popupMenu) {
+                popupMenu.classList.remove('active');
+            }
+        });
+    </script>
 </body>
 </html>
