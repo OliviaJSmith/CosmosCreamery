@@ -24,129 +24,127 @@
             justify-content: center;
             align-items: center;
             box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            overflow: hidden;
         }
 
-        .hamburger-menu {
-            border: none;
-            background: none;
+        .carousel {
+            display: flex;
+            animation: slide 10s linear infinite;
+            white-space: nowrap;
+        }
+
+        .carousel-item {
+            font-family: 'Quicksand', sans-serif;
             font-size: 24px;
-            cursor: pointer;
-            padding: 10px;
+            padding: 0 20px;
+            color: #333;
+        }
+
+        @keyframes slide {
+            0% {
+                transform: translateX(100%);
+            }
+            100% {
+                transform: translateX(-100%);
+            }
         }
 
         .main-content {
             flex: 1;
             display: flex;
+            flex-direction: row;
             justify-content: center;
-            align-items: center;
+            align-items: stretch;
+            padding: 20px;
+            gap: 20px;
+        }
+
+        .left-column {
+            flex: 1;
+            display: flex;
+            justify-content: flex-start;
+            align-items: flex-start;
+            padding-top: 20px;
+        }
+
+        .right-column {
+            flex: 1;
+            display: flex;
             flex-direction: column;
+            gap: 20px;
+            padding: 20px;
+            justify-content: flex-start;
+            align-items: flex-start;  /* Add this line */
         }
 
         .logo-home {
             max-width: 100%;
             height: auto;
-            max-height: calc(100vh - 60px);
             object-fit: contain;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            margin-top: 0;
         }
-
-        .popup-menu {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.655);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            opacity: 0.8;
-            visibility: hidden;
-            transition: opacity 0.3s ease, visibility 0.3s ease;
-        }
-
-        .popup-menu.active {
-            opacity: 0.8;
-            visibility: visible;
-        }
-
-        .menu-items {
-            list-style: none;
-            padding: 0;
-            text-align: center;
-            font-family: 'Quicksand', sans-serif;
-        }
-
-        .menu-items li {
-            margin: 20px 0;
-        }
-
-        .menu-items a {
-            color: white;
-            text-decoration: none;
-            font-size: 28px;
-            font-weight: 600;
-            transition: color 0.3s ease;
-        }
-
-        .menu-items a:hover {
-            color: #ccc;
-        }
+       
 
         html {
             scroll-behavior: smooth;
         }
 
         #about, #contact {
-            padding: 0;
-            margin: 20px;
-            max-width: 800px;
-            font-family: 'Quicksand', sans-serif;
-            font-size: 1.2rem;
-            line-height: 1.6;
-            color: #333;
+            padding: 20px;
+            margin: 0;
             background-color: rgba(255, 255, 255, 0.9);
             border-radius: 10px;
-            text-align: center;
-            height: 0;
-            overflow: hidden;
-            transition: all 0.3s ease-in-out;
-            opacity: 0;
-        }
-
-        #about.active, #contact.active {
-            padding: 20px;
+            text-align: left;
             height: auto;
             opacity: 1;
+            overflow: visible;
+            font-family: 'Quicksand', sans-serif;
+            font-size: 18px;
+            line-height: 1.6;
+        }
+
+        @media (max-width: 768px) {
+            .main-content {
+                flex-direction: column;
+            }
+            .left-column, .right-column {
+                width: 100%;
+            }
         }
     </style>
 </head>
 <body>
     <header>
-        <button class="hamburger-menu" aria-label="Menu">☰</button>
-    </header>
-    <div class="popup-menu">
-        <ul class="menu-items">
-            <li><a href="#about">About</a></li>
-            <li><a href="#contact">Contact</a></li>
-        </ul>
-    </div>
-    <main class="main-content">
-        <img class="logo-home" src="assets/logo.jpg" alt="Cosmos Creamery Logo">
-        <div id="about">
-            Cosmo's Creamery is named after a beloved family cat who was named after the flower (not Cosmo Kramer 
-            or the outer space kind - though I am fine with both those associations!). 
-            The story starts before I (Hi, Olivia the owner here!) was even born with my dad who made it his mission to make the 
-            best homemade chocolate ice cream you had ever had. I took my dad's recipe 
-            with me when I moved to Spokane, WA in 2020, and now, after many years of making it for 
-            family, friends, and coworkers, it's time to share it with more people!
+        <div class="carousel">
+            <span class="carousel-item">ice cream!</span>
+            <span class="carousel-item">ice cream!</span>
+            <span class="carousel-item">ice cream!</span>
+            <span class="carousel-item">ice cream!</span>
+            <span class="carousel-item">ice cream!</span>
         </div>
-        <div id="contact">
-            <div>Email: <strong>cosmoscreamery@gmail.com</strong></div>
-            <hr/>
-            <div>I will update this website with more details on availability
-                as production ramps up. In the mean time if you want to try this ice cream or have any other 
-                questions send an email to <strong>cosmoscreamery@gmail.com</strong>.
+    </header>  
+    <main class="main-content">
+        <div class="left-column">
+            <img class="logo-home" src="assets/logo.jpg" alt="Cosmos Creamery Logo">
+        </div>
+        <div class="right-column">
+            <div id="about">
+                Cosmo's Creamery is named after a beloved family cat who was named after the flower (not Cosmo Kramer 
+                or the outer space kind - though I am fine with both those associations!). 
+                The story starts before I (Hi, Olivia the owner here!) was even born with my dad who made it his mission to make the 
+                best homemade chocolate ice cream you had ever had. I took my dad's recipe 
+                with me when I moved to Spokane, WA in 2020, and now, after many years of making it for 
+                family, friends, and coworkers, it's time to share it with more people!
+            </div>
+            <div id="contact">
+                <div>Email: <strong>cosmoscreamery@gmail.com</strong></div>
+                <div>Instagram: <strong><a href="https://www.instagram.com/cosmos_creamery_spokane/" target="_blank">@cosmos_creamery_spokane</a></strong></div>
+                <hr/>
+                <div>I will update this website with more details on availability
+                    as production ramps up. In the mean time if you want to try this ice cream or have any other 
+                    questions send an email to <strong>cosmoscreamery@gmail.com</strong>.
+                </div>
             </div>
         </div>
     </main>
